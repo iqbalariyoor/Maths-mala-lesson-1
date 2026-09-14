@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ഗണിതം - STD 8 Lesson 1: വർഗങ്ങൾ</title>
+    <title>ഗണിതം - STD 8 Learning App</title>
     <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -23,8 +23,10 @@
         .category-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 20px; }
         .category-title { font-size: 1.2rem; font-weight: 700; color: #0f172a; margin-bottom: 16px; border-bottom: 2px dashed #cbd5e1; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .content-card { background-color: #ffffff; border: 2px solid #a7f3d0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .quiz-opt { padding: 12px; background-color: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; transition: all 0.2s; }
+        .quiz-opt, .match-item { padding: 12px; background-color: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold; transition: all 0.2s; }
         .quiz-opt:hover { background-color: #e2e8f0; }
+        .match-item.selected { background-color: #bae6fd; border-color: #0284c7; }
+        .match-item.matched { background-color: #bbf7d0; border-color: #16a34a; color: #16a34a; cursor: default; }
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #1e293b; color: white; padding: 12px 24px; border-radius: 8px; z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s; font-weight: bold; max-width: 90%; text-align:center; }
         .toast.show { display: block; opacity: 1; }
         input.game-input { width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1.1rem; text-align: center; font-weight: bold; margin-bottom: 10px; }
@@ -34,68 +36,68 @@
 <body>
 <div class="app-container">
 
+    <!-- Home Screen -->
     <div id="homeScreen" class="screen active">
         <div class="text-center mb-6 pt-2">
             <h1 class="text-3xl font-bold text-emerald-800 mb-1">ഗണിതം - STD 8</h1>
-            <p class="text-emerald-600 font-bold mb-3">യൂണിറ്റ് 1: വർഗങ്ങൾ (Squares)</p>
+            <p class="text-emerald-600 font-bold mb-3">കേരള കരിക്കുലം ഡിജിറ്റൽ പഠന സഹായി</p>
         </div>
 
-        <!-- 1. Notes & Concepts -->
-        <div class="category-card border-blue-200">
-            <h3 class="category-title text-blue-800">📖 1. പാഠഭാഗങ്ങൾ & പഠനം</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button class="btn-main bg-blue-500" onclick="showScreen('learnScreen')"><span class="text-2xl">📘</span> പൂർണ്ണവർഗങ്ങൾ നോട്ട്സ്</button>
-                <button class="btn-main bg-cyan-500" onclick="showScreen('gridMethodScreen')"><span class="text-2xl">🟩</span> കളം വരച്ച് ഗുണിക്കൽ</button>
-            </div>
-        </div>
-
-        <!-- 2. Calculators & Interactive Practice -->
-        <div class="category-card border-purple-200">
-            <h3 class="category-title text-purple-800">🧮 2. പരിശീലന കളികൾ & കാൽക്കുലേറ്റർ</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button class="btn-main bg-purple-500" onclick="showScreen('twoDigitCalcScreen')"><span class="text-2xl">🔢</span> രണ്ടക്ക സംഖ്യാ വർഗ കാൽക്കുലേറ്റർ</button>
-                <button class="btn-main bg-indigo-500" onclick="showScreen('decimalCalcScreen')"><span class="text-2xl">➗</span> ദശാംശ വർഗങ്ങൾ (Decimals)</button>
-                <button class="btn-main bg-violet-500" onclick="initSquareQuiz(); showScreen('quizScreen')"><span class="text-2xl">❓</span> വർഗ ക്വിസ് ഗെയിം</button>
-            </div>
-        </div>
-
-        <!-- 3. Assessment Corner -->
+        <!-- Lesson 1 Section -->
         <div class="category-card border-emerald-200">
-            <h3 class="category-title text-emerald-800">📝 3. പരീക്ഷാ കോർണർ</h3>
+            <h3 class="category-title text-emerald-800">📘 യൂണിറ്റ് 1: വർഗങ്ങൾ (Squares)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button class="btn-main bg-teal-500" onclick="showScreen('modelQPScreen')"><span class="text-2xl">📋</span> മോഡൽ ചോദ്യപേപ്പർ</button>
-                <button class="btn-main bg-emerald-600" onclick="showScreen('unitTestScreen')"><span class="text-2xl">📄</span> യൂണിറ്റ് ടെസ്റ്റ് & പ്രിന്റ്</button>
+                <button class="btn-main bg-emerald-600" onclick="showScreen('learnScreen')"><span class="text-2xl">📖</span> പാഠഭാഗങ്ങൾ & നോട്ടുകൾ</button>
+                <button class="btn-main bg-teal-600" onclick="showScreen('gridMethodScreen')"><span class="text-2xl">🟩</span> കളം വരച്ച് ഗുണിക്കൽ</button>
+                <button class="btn-main bg-cyan-600" onclick="showScreen('twoDigitCalcScreen')"><span class="text-2xl">🔢</span> രണ്ടക്ക വർഗ കാൽക്കുലേറ്റർ</button>
+                <button class="btn-main bg-blue-600" onclick="showScreen('decimalCalcScreen')"><span class="text-2xl">➗</span> ദശാംശ വർഗങ്ങൾ</button>
+                <button class="btn-main bg-indigo-600" onclick="initSquareQuiz(); showScreen('quizScreen')"><span class="text-2xl">❓</span> യൂണിറ്റ് 1 ക്വിസ്</button>
+            </div>
+        </div>
+
+        <!-- Lesson 2 Section -->
+        <div class="category-card border-purple-200">
+            <h3 class="category-title text-purple-800">📐 യൂണിറ്റ് 2: തുല്യത്രികോണങ്ങൾ (Equal Triangles)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <button class="btn-main bg-purple-600" onclick="showScreen('lesson2LearnScreen')"><span class="text-2xl">📖</span> പാഠഭാഗങ്ങൾ & സിദ്ധാന്തങ്ങൾ</button>
+                <button class="btn-main bg-violet-600" onclick="showScreen('triangleCriteriaScreen')"><span class="text-2xl">🔺</span> ത്രികോണ തുല്യത മാനദണ്ഡങ്ങൾ</button>
+                <button class="btn-main bg-fuchsia-600" onclick="showScreen('isoscelesScreen')"><span class="text-2xl">📐</span> സമപാർശ്വത്രികോണ സവിശേഷതകൾ</button>
+                <button class="btn-main bg-pink-600" onclick="initLesson2Quiz(); showScreen('lesson2QuizScreen')"><span class="text-2xl">❓</span> യൂണിറ്റ് 2 ക്വിസ് ഗെയിം</button>
+            </div>
+        </div>
+
+        <!-- Assessment Corner -->
+        <div class="category-card border-amber-200">
+            <h3 class="category-title text-amber-800">📝 പരീക്ഷാ കോർണർ & മാതൃകാ ചോദ്യപേപ്പറുകൾ</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <button class="btn-main bg-amber-600" onclick="showScreen('modelQPScreen')"><span class="text-2xl">📋</span> യൂണിറ്റ് 1 മോഡൽ ചോദ്യപേപ്പർ</button>
+                <button class="btn-main bg-orange-600" onclick="showScreen('lesson2QPScreen')"><span class="text-2xl">📋</span> യൂണിറ്റ് 2 മോഡൽ ചോദ്യപേപ്പർ</button>
+                <button class="btn-main bg-red-600" onclick="showScreen('unitTestScreen')"><span class="text-2xl">📄</span> പ്രിന്റബിൾ യൂണിറ്റ് ടെസ്റ്റ്</button>
             </div>
         </div>
     </div>
 
+    <!-- Lesson 1 Learn Screen -->
     <div id="learnScreen" class="screen">
-        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>പൂർണ്ണവർഗങ്ങൾ (Perfect Squares)</h1></div>
-
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>യൂണിറ്റ് 1: പൂർണ്ണവർഗങ്ങൾ</h1></div>
         <div class="content-card">
-            <h3 class="text-xl font-bold text-blue-700 mb-2">⭐ എന്താണ് പൂർണ്ണവർഗങ്ങൾ?</h3>
-            <p class="text-sm mb-2">1, 4, 9, 16, 25, ... എന്നീ സംഖ്യാക്രമം ഓർമ്മയുണ്ടോ? അഞ്ചാം ക്ലാസിൽ സമചതുര സംഖ്യകൾ എന്ന് പഠിച്ചവയാണിത്!</p>
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-sm font-semibold text-blue-900 mb-3">
-                $1 = 1 \times 1 = 1^2$<br>
-                $4 = 2 \times 2 = 2^2$<br>
-                $9 = 3 \times 3 = 3^2$<br>
-                $16 = 4 \times 4 = 4^2$
-            </div>
+            <h3 class="text-xl font-bold text-emerald-700 mb-2">⭐ എന്താണ് പൂർണ്ണവർഗങ്ങൾ?</h3>
             <p class="text-sm mb-2">1, 2, 3, ... എന്നീ എണ്ണൽസംഖ്യകളുടെ വർഗങ്ങളായ 1, 4, 9, 16, 25 ... എന്നിവയ്ക്കാണ് <b>പൂർണ്ണവർഗങ്ങൾ (Perfect squares)</b> എന്ന് പറയുന്നത്.</p>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-sm font-semibold text-emerald-900 mb-3">
+                $1^2 = 1 \times 1 = 1$<br>$2^2 = 2 \times 2 = 4$<br>$3^2 = 3 \times 3 = 9$<br>$10^2 = 10 \times 10 = 100$
+            </div>
         </div>
-
         <div class="content-card">
             <h3 class="text-xl font-bold text-purple-700 mb-2">📐 രണ്ടക്ക സംഖ്യകളുടെ വർഗ്ഗം കാണാൻ എളുപ്പവഴി</h3>
-            <p class="text-sm mb-2">ഉദാഹരണത്തിന് $13^2$ കാണാം:</p>
+            <p class="text-sm mb-2">സമവാക്യം: $(a + b)^2 = a^2 + 2ab + b^2$. ഉദാഹരണത്തിന് $36^2$ കാണാം:</p>
             <div class="bg-purple-50 border border-purple-200 rounded-xl p-3 text-sm font-semibold text-purple-900 mb-3">
-                $13^2 = (10 + 3)^2$<br>
-                $= 10^2 + (10 \times 3 \times 2) + 3^2$<br>
-                $= 100 + 60 + 9 = 169$
+                $36^2 = 30^2 + (30 \times 6 \times 2) + 6^2$<br>
+                $= 900 + 360 + 36 = 1296$
             </div>
-            <p class="text-sm">പൊതുവായ സമവാക്യം: $(a + b)^2 = a^2 + 2ab + b^2$. ഇത് കളം വരച്ച് (Grid method) വളരെ എളുപ്പത്തിൽ കണ്ടെത്താം.</p>
         </div>
     </div>
 
+    <!-- Grid Method Screen -->
     <div id="gridMethodScreen" class="screen">
         <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>കളം വരച്ച് ഗുണിക്കൽ (Grid Method)</h1></div>
         <div class="content-card text-center">
@@ -108,28 +110,27 @@
         </div>
     </div>
 
+    <!-- Two Digit Calculator Screen -->
     <div id="twoDigitCalcScreen" class="screen">
         <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>രണ്ടക്ക സംഖ്യാ വർഗ കാൽക്കുലേറ്റർ</h1></div>
         <div class="content-card text-center">
             <p class="font-bold text-gray-700 mb-4">ഏത് രണ്ടക്ക സംഖ്യയും ടൈപ്പ് ചെയ്ത് വർഗ്ഗം കാണൂ!</p>
             <input type="number" id="twoDigitInput" class="game-input text-2xl" placeholder="ഉദാ: 36" min="10" max="99" oninput="calcTwoDigit()">
-            <div id="twoDigitResult" class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-lg font-bold text-emerald-900">
-                ഉത്തരം ഇവിടെ കാണാം...
-            </div>
+            <div id="twoDigitResult" class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-lg font-bold text-emerald-900">ഉത്തരം ഇവിടെ കാണാം...</div>
         </div>
     </div>
 
+    <!-- Decimal Calculator Screen -->
     <div id="decimalCalcScreen" class="screen">
         <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>ദശാംശ വർഗങ്ങൾ (Decimal Squares)</h1></div>
         <div class="content-card text-center">
-            <p class="font-bold text-gray-700 mb-4">ഉദാഹരണത്തിന്: 3.7², 5.8², 12.5² എന്നിവ കണ്ടെത്താം.</p>
+            <p class="font-bold text-gray-700 mb-4">ഉദാഹരണത്തിന്: 3.7², 5.8², 13.9² എന്നിവ കണ്ടെത്താം.</p>
             <input type="number" step="0.1" id="decimalInput" class="game-input text-2xl" placeholder="ഉദാ: 3.7" oninput="calcDecimal()">
-            <div id="decimalResult" class="mt-4 p-4 bg-cyan-50 rounded-xl border border-cyan-200 text-lg font-bold text-cyan-900">
-                ഉത്തരം ഇവിടെ കാണാം...
-            </div>
+            <div id="decimalResult" class="mt-4 p-4 bg-cyan-50 rounded-xl border border-cyan-200 text-lg font-bold text-cyan-900">ഉത്തരം ഇവിടെ കാണാം...</div>
         </div>
     </div>
 
+    <!-- Quiz Screen (Lesson 1) -->
     <div id="quizScreen" class="screen">
         <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>വർഗ ക്വിസ്</h1><div id="quizProgress" class="font-bold bg-white text-emerald-700 px-3 py-1 rounded-lg">1/5</div></div>
         <div class="content-card min-h-[280px] flex flex-col justify-center">
@@ -146,8 +147,88 @@
         </div>
     </div>
 
+    <!-- Lesson 2 Learn Screen -->
+    <div id="lesson2LearnScreen" class="screen">
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>യൂണിറ്റ് 2: തുല്യത്രികോണങ്ങൾ</h1></div>
+        <div class="content-card">
+            <h3 class="text-xl font-bold text-purple-700 mb-2">🔺 എന്താണ് തുല്യത്രികോണങ്ങൾ (Equal Triangles)?</h3>
+            <p class="text-sm mb-2">ഒരു ത്രികോണത്തിന്റെ മൂന്നു വശങ്ങളും മറ്റൊരു ത്രികോണത്തിന്റെ മൂന്നു വശങ്ങൾക്ക് തുല്യമാണെങ്കിൽ, അവയുടെ കോണുകളും തുല്യമായിരിക്കും. ഇവയെ തുല്യത്രികോണങ്ങൾ എന്ന് വിളിക്കുന്നു.</p>
+            <div class="bg-purple-50 border border-purple-200 rounded-xl p-3 text-sm font-semibold text-purple-900 mb-3 space-y-1">
+                <p><b>1. വ.വ.വ (SSS) മാനദണ്ഡം:</b> ഒരു ത്രികോണത്തിലെ മൂന്ന് വശങ്ങളും മറ്റൊരു ത്രികോണത്തിലെ മൂന്ന് വശങ്ങൾക്ക് തുല്യമായാൽ ത്രികോണങ്ങൾ തുല്യമാണ്.</p>
+                <p><b>2. വ.കോ.വ (SAS) മാനദണ്ഡം:</b> ഒരു ത്രികോണത്തിലെ രണ്ട് വശങ്ങളും അവ ചേരുന്ന കോണും മറ്റൊരു ത്രികോണത്തിലെ തുല്യ വശങ്ങൾക്കും കോണിനും തുല്യമായാൽ.</p>
+                <p><b>3. കോ.വ.കോ (ASA) മാനദണ്ഡം:</b> ഒരു ത്രികോണത്തിലെ ഒരു വശവും അതിന്റെ രണ്ടറ്റത്തുള്ള കോണുകളും മറ്റൊരു ത്രികോണത്തിന് തുല്യമായാൽ.</p>
+            </div>
+        </div>
+        <div class="content-card">
+            <h3 class="text-xl font-bold text-indigo-700 mb-2">⚖️ സമപാർശ്വത്രികോണ സവിശേഷതകൾ</h3>
+            <p class="text-sm mb-2">ഒരു ത്രികോണത്തിന്റെ രണ്ട് വശങ്ങൾ തുല്യമാണെങ്കിൽ, ആ വശങ്ങളുടെ എതിരെയുള്ള കോണുകളും തുല്യമാണ്.</p>
+            <p class="text-sm">ഏതൊരു സമഭുജത്രികോണത്തിലും (Equilateral triangle) കോണുകളെല്ലാം $60^\circ$ വീതമാണ്.</p>
+        </div>
+    </div>
+
+    <!-- Triangle Criteria Screen -->
+    <div id="triangleCriteriaScreen" class="screen">
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>ത്രികോണ തുല്യത മാനദണ്ഡങ്ങൾ</h1></div>
+        <div class="content-card">
+            <p class="font-bold text-gray-700 mb-4 text-center">ശരിയായ മാനദണ്ഡം തിരഞ്ഞെടുക്കുക</p>
+            <div class="space-y-4">
+                <div class="p-4 bg-purple-50 border border-purple-200 rounded-xl">
+                    <h4 class="font-bold text-purple-900 mb-1">ചോദ്യം 1:</h4>
+                    <p class="text-sm mb-3">ഒരു ത്രികോണത്തിന്റെ മൂന്ന് വശങ്ങളും മറ്റേ ത്രികോണത്തിന്റെ മൂന്ന് വശങ്ങൾക്ക് തുല്യമായാൽ ഏത് മാനദണ്ഡം ഉപയോഗിക്കാം?</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(1, 'SSS', true)">വ.വ.വ (SSS)</button>
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(1, 'SAS', false)">വ.കോ.വ (SAS)</button>
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(1, 'ASA', false)">കോ.വ.കോ (ASA)</button>
+                    </div>
+                </div>
+                <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
+                    <h4 class="font-bold text-indigo-900 mb-1">ചോദ്യം 2:</h4>
+                    <p class="text-sm mb-3">രണ്ട് വശങ്ങളും അവ ചേരുന്ന കോണും തുല്യമായാൽ?</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(2, 'SSS', false)">വ.വ.വ (SSS)</button>
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(2, 'SAS', true)">വ.കോ.വ (SAS)</button>
+                        <button class="quiz-opt text-sm py-2" onclick="checkCrit(2, 'ASA', false)">കോ.വ.കോ (ASA)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Isosceles Screen -->
+    <div id="isoscelesScreen" class="screen">
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅ Home</button><h1>സമപാർശ്വത്രികോണം (Isosceles Triangle)</h1></div>
+        <div class="content-card text-center">
+            <p class="font-bold text-gray-700 mb-4">സമപാർശ്വത്രികോണത്തിന്റെ തുല്യമല്ലാത്ത കോൺ നൽകിയാൽ മറ്റേ കോണുകൾ കാണാം.</p>
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-gray-600 mb-1">ശിരസ്സ് കോൺ (Vertex Angle) നൽകുക (°):</label>
+                <input type="number" id="vertexAngle" class="game-input max-w-[200px]" value="40" min="1" max="179" oninput="calcIsosceles()">
+            </div>
+            <div id="isoscelesResult" class="p-4 bg-pink-50 rounded-xl border border-pink-200 text-lg font-bold text-pink-900">
+                മറ്റ് രണ്ട് കോണുകൾ: 70° വീതം
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen (Lesson 2) -->
+    <div id="lesson2QuizScreen" class="screen">
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>യൂണിറ്റ് 2 ക്വിസ്</h1><div id="l2Progress" class="font-bold bg-white text-purple-700 px-3 py-1 rounded-lg">1/5</div></div>
+        <div class="content-card min-h-[280px] flex flex-col justify-center">
+            <div id="l2QuestionArea">
+                <h3 id="l2QuestionText" class="font-bold text-xl mb-6 text-gray-800 leading-relaxed">ചോദ്യം വരുന്നു...</h3>
+                <div id="l2OptionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+            <div id="l2ResultArea" style="display:none;" class="text-center py-4">
+                <div class="text-6xl mb-4">⭐</div>
+                <h2 class="text-2xl font-bold text-purple-600 mb-3">ക്വിസ് പൂർത്തിയായി!</h2>
+                <p class="text-xl font-bold mb-6 text-gray-700">സ്കോർ: <span id="l2FinalScore" class="text-3xl text-blue-600 mx-2">0</span> / 5</p>
+                <button class="btn-action w-full py-3 text-lg" onclick="initLesson2Quiz()">വീണ്ടും കളിക്കാം 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lesson 1 Model Question Paper -->
     <div id="modelQPScreen" class="screen">
-        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>മോഡൽ ചോദ്യപേപ്പർ</h1></div>
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>യൂണിറ്റ് 1 മോഡൽ ചോദ്യപേപ്പർ</h1></div>
         <div class="content-card">
             <div class="text-center mb-6 border-b-2 border-gray-300 pb-2">
                 <h2 class="text-2xl font-bold text-emerald-800">മോഡൽ ചോദ്യപേപ്പർ - ഗണിതം</h2>
@@ -162,27 +243,46 @@
                         <li>സി) $3.7^2$</li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-2 text-blue-800">2. പൂരിപ്പിക്കുക / കണ്ടെത്തുക:</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>എ) ഒരു സമചതുരത്തിന്റെ വശം 8.5 മീറ്റർ ആയാൽ പരപ്പളവ് എത്ര?</li>
-                        <li>ബി) $13.9^2$ ന്റെ വില കണക്കാക്കുക.</li>
-                    </ul>
-                </div>
             </div>
             <button class="btn-action w-full mt-8 py-3 text-lg" onclick="document.getElementById('modelAnswers').classList.toggle('hidden')">ഉത്തരങ്ങൾ കാണുക 👁️</button>
             <div id="modelAnswers" class="mt-6 p-5 bg-green-50 rounded-xl hidden border-2 border-green-200 text-green-900">
                 <h4 class="font-bold mb-3 text-xl border-b border-green-300 pb-2">ഉത്തരങ്ങൾ:</h4>
-                <p class="font-bold mb-1">1. എ) $36^2 = 30^2 + (30 \times 6 \times 2) + 6^2 = 900 + 360 + 36 = 1296$</p>
-                <p class="font-bold mb-1">ബി) $88^2 = 80^2 + (80 \times 8 \times 2) + 8^2 = 6400 + 1280 + 64 = 7744$</p>
-                <p class="font-bold mb-1">സി) $3.7^2 = 3^2 + (3 \times 0.7 \times 2) + 0.7^2 = 9 + 4.2 + 0.49 = 13.69$</p>
-                <p class="font-bold mb-1">2. എ) $8.5^2 = 72.25$ ചതുരശ്ര മീറ്റർ</p>
+                <p class="font-bold mb-1">1. എ) $36^2 = 900 + 360 + 36 = 1296$</p>
+                <p class="font-bold mb-1">ബി) $88^2 = 6400 + 1280 + 64 = 7744$</p>
+                <p class="font-bold mb-1">സി) $3.7^2 = 9 + 4.2 + 0.49 = 13.69$</p>
             </div>
         </div>
     </div>
 
+    <!-- Lesson 2 Model Question Paper -->
+    <div id="lesson2QPScreen" class="screen">
+        <div class="header"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>യൂണിറ്റ് 2 മോഡൽ ചോദ്യപേപ്പർ</h1></div>
+        <div class="content-card">
+            <div class="text-center mb-6 border-b-2 border-gray-300 pb-2">
+                <h2 class="text-2xl font-bold text-purple-800">മോഡൽ ചോദ്യപേപ്പർ - തുല്യത്രികോണങ്ങൾ</h2>
+                <p class="font-bold text-gray-500">ക്ലാസ്സ് 8 | യൂണിറ്റ് 2 | സമയം: 45 മിനിറ്റ്</p>
+            </div>
+            <div class="space-y-6 text-gray-800">
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-purple-800">1. പ്രധാന ചോദ്യങ്ങൾ:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>എ) ഒരു സമപാർശ്വത്രികോണത്തിന്റെ ശിരസ്സ് കോൺ $40^\circ$ ആയാൽ മറ്റു കോണുകൾ എത്ര?</li>
+                        <li>ബി) ഏതൊരു സമഭുജത്രികോണത്തിലും കോണുകളെല്ലാം എത്ര ഡിഗ്രിയാണ്?</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn-action w-full mt-8 py-3 text-lg" onclick="document.getElementById('l2Answers').classList.toggle('hidden')">ഉത്തരങ്ങൾ കാണുക 👁️</button>
+            <div id="l2Answers" class="mt-6 p-5 bg-purple-50 rounded-xl hidden border-2 border-purple-200 text-purple-900">
+                <h4 class="font-bold mb-3 text-xl border-b border-purple-300 pb-2">ഉത്തരങ്ങൾ:</h4>
+                <p class="font-bold mb-1">1. എ) $(180^\circ - 40^\circ) \div 2 = 70^\circ$ വീതം.</p>
+                <p class="font-bold mb-1">ബി) $60^\circ$ വീതം.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Printable Unit Test -->
     <div id="unitTestScreen" class="screen">
-        <div class="header no-print"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>യൂണിറ്റ് ടെസ്റ്റ്</h1></div>
+        <div class="header no-print"><button class="back-btn" onclick="showScreen('homeScreen')">⬅</button><h1>യൂണിറ്റ് ടെസ്റ്റ് & പ്രിന്റ്</h1></div>
         <div class="flex gap-3 mb-6 no-print px-4">
             <button class="flex-1 bg-blue-100 text-blue-700 py-3 rounded-xl font-bold border border-blue-300 shadow-sm hover:bg-blue-200 transition" onclick="window.print()">🖨️ പ്രിന്റ് (Print)</button>
             <button class="flex-1 bg-red-100 text-red-700 py-3 rounded-xl font-bold border border-red-300 shadow-sm hover:bg-red-200 transition" onclick="downloadPDF()">⬇️ PDF ഡൗൺലോഡ്</button>
@@ -190,25 +290,18 @@
         <div class="content-card text-sm mx-4 bg-white" id="printableQP" style="padding: 30px;">
             <div class="text-center mb-6 border-b-2 border-black pb-3">
                 <h2 class="text-2xl font-bold uppercase tracking-wide">യൂണിറ്റ് മൂല്യനിർണ്ണയം</h2>
-                <h3 class="font-bold mt-2 text-lg">ഗണിതം - ക്ലാസ് 8 | യൂണിറ്റ് 1: വർഗങ്ങൾ</h3>
+                <h3 class="font-bold mt-2 text-lg">ഗണിതം - ക്ലാസ് 8 | യൂണിറ്റുകൾ 1 & 2</h3>
             </div>
             <div class="space-y-6 text-base">
                 <div>
-                    <h3 class="font-bold mb-3">1. വർഗ്ഗം കാണുക (ഓരോന്നിനും 3 സ്കോർ):</h3>
+                    <h3 class="font-bold mb-3">1. വർഗ്ഗം കാണുക:</h3>
                     <p class="mb-2">എ) $64^2$ = ............................................................</p>
-                    <p class="mb-2">ബി) $53^2$ = ............................................................</p>
+                    <p class="mb-2">ബി) $2.3^2$ = ............................................................</p>
                 </div>
                 <div>
-                    <h3 class="font-bold mb-3">2. ദശാംശ വർഗ്ഗങ്ങൾ (4 സ്കോർ):</h3>
-                    <p class="mb-2">എ) $2.3^2$ കണക്കാക്കുക.</p>
-                    <div class="mt-6 border-b border-dashed border-gray-500 w-full"></div>
-                    <div class="mt-8 border-b border-dashed border-gray-500 w-full"></div>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-3">3. ലഘുപ്രശ്നം (5 സ്കോർ):</h3>
-                    <p class="leading-relaxed">വശങ്ങളുടെ നീളം 8.7 മീറ്റർ ആയ ഒരു സമചതുര ടാങ്കിന്റെ പരപ്പളവ് എത്രയാണ്?</p>
-                    <div class="mt-10 border-b border-dashed border-gray-500 w-full"></div>
-                    <div class="mt-10 border-b border-dashed border-gray-500 w-full"></div>
+                    <h3 class="font-bold mb-3">2. ജ്യാമിതി ചോദ്യങ്ങൾ:</h3>
+                    <p class="mb-2">എ) ഒരു സമപാർശ്വത്രികോണത്തിന്റെ അടിയിലെ ഒരു കോൺ $50^\circ$ ആയാൽ ശിരസ്സ് കോൺ എത്ര?</p>
+                    <p class="mb-2">ബി) ത്രികോണ തുല്യതയ്ക്കുള്ള ഏതെങ്കിലും രണ്ട് മാനദണ്ഡങ്ങൾ എഴുതുക.</p>
                 </div>
             </div>
             <div class="mt-10 text-center font-bold text-gray-500">***</div>
@@ -232,6 +325,7 @@
         setTimeout(()=>t.classList.remove('show'), duration); 
     }
 
+    // Grid method calculation
     function calcGrid() {
         const val = parseInt(document.getElementById('gridNum').value) || 24;
         const tens = Math.floor(val / 10) * 10;
@@ -255,10 +349,7 @@
     function calcTwoDigit() {
         const n = parseInt(document.getElementById('twoDigitInput').value);
         const resDiv = document.getElementById('twoDigitResult');
-        if (!n || n < 10 || n > 99) {
-            resDiv.innerText = "ദയവായി 10 നും 99 നും ഇടയിലുള്ള ഒരു രണ്ടക്ക സംഖ്യ നൽകുക.";
-            return;
-        }
+        if (!n || n < 10 || n > 99) { resDiv.innerText = "ദയവായി 10 നും 99 നും ഇടയിലുള്ള സംഖ്യ നൽകുക."; return; }
         const t = Math.floor(n / 10) * 10;
         const u = n % 10;
         const ans = n * n;
@@ -268,14 +359,12 @@
     function calcDecimal() {
         const d = parseFloat(document.getElementById('decimalInput').value);
         const resDiv = document.getElementById('decimalResult');
-        if (!d || d <= 0) {
-            resDiv.innerText = "ശരിയായ ദശാംശ സംഖ്യ നൽകുക (ഉദാ: 3.7)";
-            return;
-        }
+        if (!d || d <= 0) { resDiv.innerText = "ശരിയായ ദശാംശ സംഖ്യ നൽകുക (ഉദാ: 3.7)"; return; }
         const ans = (d * d).toFixed(4);
         resDiv.innerHTML = `${d}² = <span class="text-2xl text-cyan-700">${ans}</span>`;
     }
 
+    // Lesson 1 Quiz Data
     const quizData = [
         { q: "13² എത്രയാണ്?", options: ["149", "169", "196", "133"], ans: 1 },
         { q: "25² എത്രയാണ്?", options: ["625", "525", "652", "550"], ans: 0 },
@@ -308,15 +397,8 @@
         const cIdx = quizData[qIdx].ans;
         const btns = document.querySelectorAll('#optionsGrid .quiz-opt');
         btns.forEach(b => b.disabled = true);
-        if (sIdx === cIdx) {
-            btn.classList.add('bg-green-100', 'border-green-500');
-            qScore++;
-            showToast('ശരി! 🎉', 800);
-        } else {
-            btn.classList.add('bg-red-100', 'border-red-500');
-            btns[cIdx].classList.add('bg-green-100', 'border-green-500');
-            showToast('തെറ്റ്!', 800, false);
-        }
+        if (sIdx === cIdx) { btn.classList.add('bg-green-100', 'border-green-500'); qScore++; showToast('ശരി! 🎉', 800); }
+        else { btn.classList.add('bg-red-100', 'border-red-500'); btns[cIdx].classList.add('bg-green-100', 'border-green-500'); showToast('തെറ്റ്!', 800, false); }
         setTimeout(() => {
             qIdx++;
             if (qIdx < quizData.length) loadQuizQuestion();
@@ -329,9 +411,72 @@
         }, 1200);
     }
 
+    // Triangle criteria check
+    function checkCrit(qNum, choice, isCorrect) {
+        if (isCorrect) showToast('ശരി ഉത്തരം! 🌟');
+        else showToast('തെറ്റാണ്, വീണ്ടും നോക്കൂ.', 1500, false);
+    }
+
+    // Isosceles angle calculator
+    function calcIsosceles() {
+        const v = parseFloat(document.getElementById('vertexAngle').value);
+        const res = document.getElementById('isoscelesResult');
+        if (isNaN(v) || v <= 0 || v >= 180) { res.innerText = "ദയവായി 0° നും 180° നും ഇടയിലുള്ള കോൺ നൽകുക."; return; }
+        const baseAngles = (180 - v) / 2;
+        res.innerHTML = `മറ്റ് രണ്ട് കോണുകൾ: <span class="text-2xl text-purple-700">${baseAngles.toFixed(1)}°</span> വീതം`;
+    }
+    calcIsosceles();
+
+    // Lesson 2 Quiz Data
+    const l2QuizData = [
+        { q: "ഏതൊരു സമഭുജത്രികോണത്തിലും കോണുകളെല്ലാം എത്ര ഡിഗ്രിയാണ്?", options: ["45°", "60°", "90°", "120°"], ans: 1 },
+        { q: "ഒരു സമപാർശ്വത്രികോണത്തിന്റെ രണ്ട് വശങ്ങൾ തുല്യമായാൽ, അവയുടെ എതിരെയുള്ള കോണുകൾ എങ്ങനെയിരിക്കും?", options: ["തുല്യമാണ്", "വ്യത്യസ്തമാണ്", "പകുപ്പാണ്", "മട്ടമാണ്"], ans: 0 },
+        { q: "ത്രികോണ തുല്യതയ്ക്കുള്ള മാനദണ്ഡമല്ലാത്തത് ഏത്?", options: ["SSS", "SAS", "AAA", "ASA"], ans: 2 },
+        { q: "ഒരു ത്രികോണത്തിന്റെ മൂന്ന് കോണുകളുടെ തുക എത്രയാണ്?", options: ["90°", "180°", "360°", "270°"], ans: 1 },
+        { q: "ഒരു സമപാർശ്വത്രികോണത്തിന്റെ ശിരസ്സ് കോൺ 60° ആയാൽ ആ ത്രികോണം ഏതാണ്?", options: ["സമഭുജത്രികോണം", "മട്ടത്രികോണം", "വിഷമഭുജത്രികോണം", "ചതുരം"], ans: 0 }
+    ];
+    let l2Idx = 0, l2Score = 0;
+    function initLesson2Quiz() {
+        l2Idx = 0; l2Score = 0;
+        document.getElementById('l2ResultArea').style.display = 'none';
+        document.getElementById('l2QuestionArea').style.display = 'block';
+        loadL2Question();
+    }
+    function loadL2Question() {
+        document.getElementById('l2Progress').innerText = `${l2Idx+1}/${l2QuizData.length}`;
+        const item = l2QuizData[l2Idx];
+        document.getElementById('l2QuestionText').innerText = `${l2Idx+1}. ${item.q}`;
+        const og = document.getElementById('l2OptionsGrid');
+        og.innerHTML = '';
+        item.options.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-opt py-3 text-lg border-2';
+            btn.innerText = opt;
+            btn.onclick = () => checkL2Opt(i, btn);
+            og.appendChild(btn);
+        });
+    }
+    function checkL2Opt(sIdx, btn) {
+        const cIdx = l2QuizData[l2Idx].ans;
+        const btns = document.querySelectorAll('#l2OptionsGrid .quiz-opt');
+        btns.forEach(b => b.disabled = true);
+        if (sIdx === cIdx) { btn.classList.add('bg-green-100', 'border-green-500'); l2Score++; showToast('ശരി! 🎉', 800); }
+        else { btn.classList.add('bg-red-100', 'border-red-500'); btns[cIdx].classList.add('bg-green-100', 'border-green-500'); showToast('തെറ്റ്!', 800, false); }
+        setTimeout(() => {
+            l2Idx++;
+            if (l2Idx < l2QuizData.length) loadL2Question();
+            else {
+                document.getElementById('l2QuestionArea').style.display = 'none';
+                document.getElementById('l2ResultArea').style.display = 'block';
+                document.getElementById('l2FinalScore').innerText = l2Score;
+                document.getElementById('l2Progress').innerText = 'പൂർത്തിയായി';
+            }
+        }, 1200);
+    }
+
     function downloadPDF() {
         const element = document.getElementById('printableQP');
-        html2pdf().set({ margin: 15, filename: 'Class8_Maths_Unit1_Squares.pdf', html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(element).save();
+        html2pdf().set({ margin: 15, filename: 'Class8_Maths_Units_1_and_2.pdf', html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(element).save();
     }
 </script>
 </body>
